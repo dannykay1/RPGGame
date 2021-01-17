@@ -8,7 +8,7 @@
 #include "GameplayAbilitySpec.h"
 
 // Sets default values
-ARPGCharacter::ARPGCharacter()
+ARPGCharacter::ARPGCharacter(const class FObjectInitializer& ObjectInitializer)
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;

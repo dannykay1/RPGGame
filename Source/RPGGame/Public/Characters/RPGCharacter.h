@@ -14,12 +14,17 @@ class ARPGCharacter : public ACharacter, public IAbilitySystemInterface
 
 public:
 	// Sets default values for this character's properties
-	ARPGCharacter();
+	ARPGCharacter(const class FObjectInitializer& ObjectInitializer);
 
 	// Implement IAbilitySystemInterface
 	virtual class UAbilitySystemComponent* GetAbilitySystemComponent() const override
 	{
 		return AbilitySystemComponent;
+	}
+
+	class URPGAttributeSet* GetAttributeSetComponent() const
+	{
+		return AttributeSetComponent;
 	}
 
 protected:

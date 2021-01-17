@@ -16,7 +16,7 @@ class RPGGAME_API ARPGPlayerCharacter : public ARPGCharacter
 
 public:
 	// Sets default values for this character's properties
-	ARPGPlayerCharacter();
+	ARPGPlayerCharacter(const class FObjectInitializer& ObjectInitializer);
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
