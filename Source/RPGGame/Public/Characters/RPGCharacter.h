@@ -16,9 +16,6 @@ public:
 	// Sets default values for this character's properties
 	ARPGCharacter();
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 	// Implement IAbilitySystemInterface
 	virtual class UAbilitySystemComponent* GetAbilitySystemComponent() const override
 	{

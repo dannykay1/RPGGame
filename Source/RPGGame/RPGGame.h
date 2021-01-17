@@ -26,5 +26,9 @@ enum class ERPGAbilityInputID : uint8
 	// 8 Sprint
 	Sprint			UMETA(DisplayName = "Sprint"),
 	// 9 Jump
-	Jump			UMETA(DisplayName = "Jump")
+	Jump			UMETA(DisplayName = "Jump"),
+	// 10 Crouch
+	Crouch			UMETA(DisplayName = "Crouch"),
+	// 11 Roll
+	Roll			UMETA(DisplayName = "Roll")
 };

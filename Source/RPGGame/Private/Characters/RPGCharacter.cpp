@@ -6,7 +6,6 @@
 #include "Abilities/GameplayAbility.h"
 #include "Abilities/RPGGameplayAbility.h"
 #include "GameplayAbilitySpec.h"
-#include "RPGGame/RPGGame.h"
 
 // Sets default values
 ARPGCharacter::ARPGCharacter()
@@ -25,17 +24,6 @@ void ARPGCharacter::BeginPlay()
 	AddCharacterAbilities();
 	InitializeAttributes();
 	AddStartupEffects();
-}
-
-void ARPGCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-	if (AbilitySystemComponent)
-	{
-		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, FGameplayAbilityInputBinds(FString("ConfirmTarget"),
-			FString("CancelTarget"), FString("ERPGAbilityInputID"), static_cast<int32>(ERPGAbilityInputID::Confirm), static_cast<int32>(ERPGAbilityInputID::Cancel)));
-	}
 }
 
 void ARPGCharacter::AddCharacterAbilities()
