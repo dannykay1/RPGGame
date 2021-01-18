@@ -48,11 +48,6 @@ public:
 	FGameplayAttributeData MaxShield;
 	ATTRIBUTE_ACCESSORS(URPGAttributeSet, MaxShield)
 
-	// MoveSpeed affects how fast characters can move.
-	UPROPERTY(BlueprintReadOnly, Category = "MoveSpeed")
-	FGameplayAttributeData MoveSpeed;
-	ATTRIBUTE_ACCESSORS(URPGAttributeSet, MoveSpeed)
-
 	UPROPERTY(BlueprintReadOnly, Category = "Character Level")
 	FGameplayAttributeData CharacterLevel;
 	ATTRIBUTE_ACCESSORS(URPGAttributeSet, CharacterLevel)

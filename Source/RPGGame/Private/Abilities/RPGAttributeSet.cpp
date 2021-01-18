@@ -24,10 +24,6 @@ void URPGAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, f
 	{
 		AdjustAttributeForMaxChange(Shield, MaxShield, NewValue, GetShieldAttribute());
 	}
-	else if (Attribute == GetMoveSpeedAttribute())
-	{
-		NewValue = FMath::Clamp<float>(NewValue, 150, 1000);
-	}
 }
 
 void URPGAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
@@ -108,7 +104,7 @@ void URPGAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 		// Health loss should go through Damage.
 		SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
 	}
-	else if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	else if (Data.EvaluatedData.Attribute == GetShieldAttribute())
 	{
 		// Handle other health changes.
 		// Health loss should go through Damage.
