@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "GameplayEffectTypes.h"
 #include "RPGCharacter.generated.h"
 
 UCLASS()
@@ -15,6 +16,9 @@ class ARPGCharacter : public ACharacter, public IAbilitySystemInterface
 public:
 	// Sets default values for this character's properties
 	ARPGCharacter(const class FObjectInitializer& ObjectInitializer);
+
+	// Used to initialize ability system component.
+	virtual void PossessedBy(AController* NewController) override;
 
 	// Implement IAbilitySystemInterface
 	virtual class UAbilitySystemComponent* GetAbilitySystemComponent() const override
@@ -57,4 +61,12 @@ protected:
 
 	// Initialize with any effects such as heal over time, respawn invincibility, etc.
 	virtual void AddStartupEffects();
+
+	FDelegateHandle HealthChangedDelegateHandle;
+
+	// Attribute changed callbacks
+	virtual void HealthChanged(const FOnAttributeChangeData& Data);
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void OnHealthChanged(float CurrentValue, float MaxValue);
 };

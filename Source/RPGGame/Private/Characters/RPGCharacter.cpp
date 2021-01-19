@@ -6,6 +6,7 @@
 #include "Abilities/GameplayAbility.h"
 #include "Abilities/RPGGameplayAbility.h"
 #include "GameplayAbilitySpec.h"
+#include "GameplayEffectTypes.h"
 
 // Sets default values
 ARPGCharacter::ARPGCharacter(const class FObjectInitializer& ObjectInitializer)
@@ -21,6 +22,13 @@ void ARPGCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetComponent->GetHealthAttribute()).AddUObject(this, &ARPGCharacter::HealthChanged);
+}
+
+void ARPGCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
 	AddCharacterAbilities();
 	InitializeAttributes();
 	AddStartupEffects();
@@ -32,6 +40,8 @@ void ARPGCharacter::AddCharacterAbilities()
 	{
 		return;
 	}
+
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 
 	for (TSubclassOf<URPGGameplayAbility>& StartupAbility : CharacterAbilities)
 	{
@@ -78,4 +88,11 @@ void ARPGCharacter::AddStartupEffects()
 			FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
 		}
 	}
+}
+
+void ARPGCharacter::HealthChanged(const FOnAttributeChangeData& Data)
+{
+	float Health = Data.NewValue;
+
+	OnHealthChanged(Health, AttributeSetComponent->GetMaxHealth());
 }
