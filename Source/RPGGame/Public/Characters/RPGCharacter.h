@@ -31,6 +31,9 @@ public:
 		return AttributeSetComponent;
 	}
 
+	UFUNCTION(BlueprintCallable, Category = "Abilities")
+	void GiveAbility(TSubclassOf<URPGGameplayAbility> AbilityToGive);
+
 protected:
 	virtual void BeginPlay() override;
 

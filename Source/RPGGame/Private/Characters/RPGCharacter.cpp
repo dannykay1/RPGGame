@@ -45,12 +45,26 @@ void ARPGCharacter::AddCharacterAbilities()
 
 	for (TSubclassOf<URPGGameplayAbility>& StartupAbility : CharacterAbilities)
 	{
-		AbilitySystemComponent->GiveAbility(
+		/*AbilitySystemComponent->GiveAbility(
 			FGameplayAbilitySpec(StartupAbility,
 			1,
 			static_cast<int32>(StartupAbility.GetDefaultObject()->AbilityInputID),
-			this));
+			this));*/
+
+		GiveAbility(StartupAbility);
 	}
+}
+
+void ARPGCharacter::GiveAbility(TSubclassOf<URPGGameplayAbility> AbilityToGive)
+{
+	if (!AbilityToGive)
+		return;
+
+	AbilitySystemComponent->GiveAbility(
+		FGameplayAbilitySpec(AbilityToGive,
+		1,
+		static_cast<int32>(AbilityToGive.GetDefaultObject()->AbilityInputID),
+		this));
 }
 
 void ARPGCharacter::InitializeAttributes()
