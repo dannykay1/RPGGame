@@ -4,5 +4,9 @@
 
 URPGGameplayAbility::URPGGameplayAbility()
 {
+}
 
+void URPGGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
+{
+	Super::OnAvatarSet(ActorInfo, Spec);
 }

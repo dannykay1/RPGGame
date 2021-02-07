@@ -45,12 +45,6 @@ void ARPGCharacter::AddCharacterAbilities()
 
 	for (TSubclassOf<URPGGameplayAbility>& StartupAbility : CharacterAbilities)
 	{
-		/*AbilitySystemComponent->GiveAbility(
-			FGameplayAbilitySpec(StartupAbility,
-			1,
-			static_cast<int32>(StartupAbility.GetDefaultObject()->AbilityInputID),
-			this));*/
-
 		GiveAbility(StartupAbility);
 	}
 }
@@ -65,6 +59,31 @@ void ARPGCharacter::GiveAbility(TSubclassOf<URPGGameplayAbility> AbilityToGive)
 		1,
 		static_cast<int32>(AbilityToGive.GetDefaultObject()->AbilityInputID),
 		this));
+}
+
+bool ARPGCharacter::IsAlive() const
+{
+	return GetHealth() > 0;
+}
+
+float ARPGCharacter::GetHealth() const
+{
+	if (AttributeSetComponent->IsValidLowLevel())
+	{
+		return AttributeSetComponent->GetHealth();
+	}
+
+	return 0.0f;
+}
+
+float ARPGCharacter::GetMaxHealth() const
+{
+	if (AttributeSetComponent->IsValidLowLevel())
+	{
+		return AttributeSetComponent->GetMaxHealth();
+	}
+
+	return 0.0f;
 }
 
 void ARPGCharacter::InitializeAttributes()

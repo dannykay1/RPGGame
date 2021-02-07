@@ -34,6 +34,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Abilities")
 	void GiveAbility(TSubclassOf<URPGGameplayAbility> AbilityToGive);
 
+	bool IsAlive() const;
+	float GetHealth() const;
+	float GetMaxHealth() const;
+
 protected:
 	virtual void BeginPlay() override;
 

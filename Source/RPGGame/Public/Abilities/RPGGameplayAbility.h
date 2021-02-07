@@ -15,6 +15,9 @@ class RPGGAME_API URPGGameplayAbility : public UGameplayAbility
 public:
 	URPGGameplayAbility();
 
+	// Epic's comment: Projects may want to initiate passives or do other "BeginPlay" type of logic here.
+	virtual void OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
+
 	// Abilities with this set will automatically activate when the input is pressed
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability")
 	ERPGAbilityInputID AbilityInputID = ERPGAbilityInputID::None;

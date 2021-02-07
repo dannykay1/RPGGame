@@ -89,7 +89,12 @@ void URPGAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 
 		if (LocalDamageDone > 0.0f)
 		{
-			// TODO: reduce shield, then any remaining damage should reduce health.
+			bool wasAlive = true;
+
+			if (TargetCharacter)
+			{
+				TargetCharacter->IsAlive();
+			}
 
 			// Apply the health change and then clamp it
 			const float NewHealth = GetHealth() - LocalDamageDone;
