@@ -74,6 +74,12 @@ protected:
 	// Attribute changed callbacks
 	virtual void HealthChanged(const FOnAttributeChangeData& Data);
 
+	// On character health <= 0 (dead)
+	virtual void Kill();
+
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	void OnHealthChanged(float CurrentValue, float MaxValue);
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void OnKill();
 };

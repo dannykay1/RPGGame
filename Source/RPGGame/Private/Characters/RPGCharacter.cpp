@@ -8,6 +8,7 @@
 #include "GameplayAbilitySpec.h"
 #include "GameplayEffectTypes.h"
 
+
 // Sets default values
 ARPGCharacter::ARPGCharacter(const class FObjectInitializer& ObjectInitializer)
 {
@@ -18,12 +19,14 @@ ARPGCharacter::ARPGCharacter(const class FObjectInitializer& ObjectInitializer)
 	AttributeSetComponent = CreateDefaultSubobject<URPGAttributeSet>(TEXT("AttributeSetComponent"));
 }
 
+
 void ARPGCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetComponent->GetHealthAttribute()).AddUObject(this, &ARPGCharacter::HealthChanged);
 }
+
 
 void ARPGCharacter::PossessedBy(AController* NewController)
 {
@@ -33,6 +36,7 @@ void ARPGCharacter::PossessedBy(AController* NewController)
 	InitializeAttributes();
 	AddStartupEffects();
 }
+
 
 void ARPGCharacter::AddCharacterAbilities()
 {
@@ -49,6 +53,7 @@ void ARPGCharacter::AddCharacterAbilities()
 	}
 }
 
+
 void ARPGCharacter::GiveAbility(TSubclassOf<URPGGameplayAbility> AbilityToGive)
 {
 	if (!AbilityToGive)
@@ -56,15 +61,17 @@ void ARPGCharacter::GiveAbility(TSubclassOf<URPGGameplayAbility> AbilityToGive)
 
 	AbilitySystemComponent->GiveAbility(
 		FGameplayAbilitySpec(AbilityToGive,
-		1,
-		static_cast<int32>(AbilityToGive.GetDefaultObject()->AbilityInputID),
-		this));
+			1,
+			static_cast<int32>(AbilityToGive.GetDefaultObject()->AbilityInputID),
+			this));
 }
+
 
 bool ARPGCharacter::IsAlive() const
 {
 	return GetHealth() > 0;
 }
+
 
 float ARPGCharacter::GetHealth() const
 {
@@ -76,6 +83,7 @@ float ARPGCharacter::GetHealth() const
 	return 0.0f;
 }
 
+
 float ARPGCharacter::GetMaxHealth() const
 {
 	if (AttributeSetComponent->IsValidLowLevel())
@@ -85,6 +93,7 @@ float ARPGCharacter::GetMaxHealth() const
 
 	return 0.0f;
 }
+
 
 void ARPGCharacter::InitializeAttributes()
 {
@@ -102,6 +111,7 @@ void ARPGCharacter::InitializeAttributes()
 		FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
 	}
 }
+
 
 void ARPGCharacter::AddStartupEffects()
 {
@@ -123,9 +133,21 @@ void ARPGCharacter::AddStartupEffects()
 	}
 }
 
+
 void ARPGCharacter::HealthChanged(const FOnAttributeChangeData& Data)
 {
 	float Health = Data.NewValue;
 
 	OnHealthChanged(Health, AttributeSetComponent->GetMaxHealth());
+
+	if (!IsAlive())
+	{
+		Kill();
+	}
+}
+
+
+void ARPGCharacter::Kill()
+{
+	OnKill();
 }

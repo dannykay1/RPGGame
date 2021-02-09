@@ -1,9 +1,10 @@
 // Copyright Danny Kay 2021.
 
 #include "Animation/RPGAnimInstance.h"
-#include "GameFramework/Character.h"
+#include "Characters/RPGCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "AbilitySystemComponent.h"
 
 URPGAnimInstance::URPGAnimInstance()
 {
@@ -20,7 +21,7 @@ void URPGAnimInstance::NativeInitializeAnimation()
 	APawn* PawnOwner = TryGetPawnOwner();
 	if (PawnOwner)
 	{
-		CharacterOwner = Cast<ACharacter>(PawnOwner);
+		CharacterOwner = Cast<ARPGCharacter>(PawnOwner);
 	}
 }
 
@@ -41,6 +42,8 @@ void URPGAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	Speed = Velocity.Size();
 
 	bIsMoving = Speed > 0.1f;
+
+	bIsDead = !CharacterOwner->IsAlive();
 
 	if (CharacterOwner->GetCharacterMovement())
 	{

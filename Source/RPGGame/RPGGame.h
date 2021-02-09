@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 
+#define SURFACE_FLESHDEFAULT		SurfaceType1
+#define SURFACE_FLESHVULNERABLE		SurfaceType2
+
 UENUM(BlueprintType)
 enum class ERPGAbilityInputID : uint8
 {

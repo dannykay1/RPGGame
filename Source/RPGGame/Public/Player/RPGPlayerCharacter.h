@@ -7,7 +7,7 @@
 #include "RPGPlayerCharacter.generated.h"
 
 /**
- * 
+ * Base class for an player/hero characters.
  */
 UCLASS()
 class RPGGAME_API ARPGPlayerCharacter : public ARPGCharacter

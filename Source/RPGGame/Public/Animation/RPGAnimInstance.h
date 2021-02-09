@@ -27,7 +27,7 @@ public:
 protected:
 	/* The owner of the animation. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Animation")
-	class ACharacter* CharacterOwner;
+	class ARPGCharacter* CharacterOwner;
 
 	/* Is character moving? */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
